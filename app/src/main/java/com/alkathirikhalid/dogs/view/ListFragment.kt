@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.alkathirikhalid.dogs.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -21,13 +20,13 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+/*    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonToDetails.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToDetailFragment(5)
             view.findNavController().navigate(action)
         }
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

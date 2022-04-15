@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -8,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".view.ListFragment">
 
-        <TextView
+<!--        <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,6 +25,6 @@
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_move_to_inbox_24" />
+            app:srcCompat="@drawable/ic_baseline_move_to_inbox_24" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
