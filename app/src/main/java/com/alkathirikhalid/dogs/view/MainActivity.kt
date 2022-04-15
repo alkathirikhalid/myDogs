@@ -8,7 +8,7 @@ import androidx.navigation.ui.NavigationUI
 import com.alkathirikhalid.dogs.R
 
 class MainActivity : AppCompatActivity() {
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
