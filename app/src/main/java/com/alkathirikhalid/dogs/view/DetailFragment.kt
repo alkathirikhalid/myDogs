@@ -21,12 +21,12 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        binding.textView.text = args.dogUuid.toString()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.textView.text = args.dogUuid.toString()
         binding.buttonToList.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_detailFragment_to_listFragment)
         }
