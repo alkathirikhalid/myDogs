@@ -3,6 +3,7 @@ package com.alkathirikhalid.dogs.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.alkathirikhalid.dogs.R
 import com.alkathirikhalid.dogs.databinding.ItemDogBinding
@@ -19,6 +20,11 @@ class DogsListAdapter(val dogsList: ArrayList<DogBreed>) :
 
     override fun onBindViewHolder(holder: DogViewHolder, position: Int) {
         holder.binding.dogBreed = dogsList[position]
+        holder.binding.root.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToDetailFragment(position)
+            it.findNavController().navigate(action)
+        }
+
         holder.binding.executePendingBindings()
     }
 
