@@ -3,47 +3,49 @@ package com.alkathirikhalid.dogs.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alkathirikhalid.dogs.model.DogBreed
+import com.alkathirikhalid.dogs.model.DogsApiService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 class ListViewModel : ViewModel() {
+
+    private val dogsService = DogsApiService()
+    private val disposable = CompositeDisposable()
 
     val dogs = MutableLiveData<List<DogBreed>>()
     val dogsLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
-    // Test Data
     fun refresh() {
-        val dog1 = DogBreed(
-            "1",
-            "Corgi",
-            "15 years",
-            "breedgroup",
-            "for",
-            "temp",
-            "img"
-        )
-        val dog2 = DogBreed(
-            "2",
-            "Mgi",
-            "10 years",
-            "breedgroup",
-            "for",
-            "temp",
-            "img"
-        )
-        val dog3 = DogBreed(
-            "3",
-            "Sgi",
-            "20 years",
-            "breedgroup",
-            "for",
-            "temp",
-            "img"
-        )
+        fetchFromRemote()
+    }
 
-        val dogList: ArrayList<DogBreed> = arrayListOf(dog1, dog2, dog3)
+    private fun fetchFromRemote() {
+        loading.value = true
+        disposable.add(
+            dogsService.getDogs()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<DogBreed>>() {
 
-        dogs.value = dogList
-        dogsLoadError.value = false
-        loading.value = false
+                    override fun onSuccess(dogList: List<DogBreed>) {
+                        dogs.value = dogList
+                        dogsLoadError.value = false
+                        loading.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        dogsLoadError.value = true
+                        loading.value = false
+                    }
+                })
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 }
