@@ -1,6 +1,9 @@
 package com.alkathirikhalid.dogs.model
 
+import com.alkathirikhalid.dogs.BuildConfig
 import io.reactivex.Single
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -8,12 +11,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DogsApiService {
     private val BASE_URL = "https://raw.githubusercontent.com"
 
-    // TODO Interceptor
+    private fun getHttpClient(): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        var httpClient = OkHttpClient()
+
+        if (BuildConfig.DEBUG) {
+            httpClient = OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build()
+        }
+
+        return httpClient
+    }
 
     private val api = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(getHttpClient())
         .build()
         .create(DogsApi::class.java)
 
