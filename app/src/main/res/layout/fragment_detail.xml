@@ -2,6 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="dogBreed"
+            type="com.alkathirikhalid.dogs.model.DogBreed" />
+
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +33,7 @@
             android:layout_below="@+id/dogImage"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
-            android:text="Dog name" />
+            android:text="@{dogBreed.dogBreed}" />
 
         <TextView
             android:id="@+id/dogPurpose"
@@ -35,7 +43,7 @@
             android:layout_below="@+id/dogName"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
-            android:text="Dog purpose" />
+            android:text="@{dogBreed.bredFor}" />
 
         <TextView
             android:id="@+id/dogTemperament"
@@ -45,7 +53,7 @@
             android:layout_below="@+id/dogPurpose"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
-            android:text="Dog temperament" />
+            android:text="@{dogBreed.temperament}" />
 
         <TextView
             android:id="@+id/dogLifespan"
@@ -55,8 +63,8 @@
             android:layout_below="@+id/dogTemperament"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
-            android:text="Dog lifespan" />
-
+            android:text="@{dogBreed.lifeSpan}" />
 
     </RelativeLayout>
+
 </layout>
