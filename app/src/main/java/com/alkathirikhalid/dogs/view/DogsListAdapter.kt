@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alkathirikhalid.dogs.R
 import com.alkathirikhalid.dogs.databinding.ItemDogBinding
 import com.alkathirikhalid.dogs.model.DogBreed
+import com.alkathirikhalid.dogs.util.getProgressDrawable
+import com.alkathirikhalid.dogs.util.loadImage
 
-class DogsListAdapter(val dogsList: ArrayList<DogBreed>) :
+class DogsListAdapter(private val dogsList: ArrayList<DogBreed>) :
     RecyclerView.Adapter<DogsListAdapter.DogViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogViewHolder {
@@ -24,6 +26,10 @@ class DogsListAdapter(val dogsList: ArrayList<DogBreed>) :
             val action = ListFragmentDirections.actionListFragmentToDetailFragment(position)
             it.findNavController().navigate(action)
         }
+        holder.binding.imageView.loadImage(
+            dogsList[position].imageUrl,
+            getProgressDrawable(holder.binding.imageView.context)
+        )
 
         holder.binding.executePendingBindings()
     }
