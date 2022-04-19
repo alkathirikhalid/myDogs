@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alkathirikhalid.dogs.R
 import com.alkathirikhalid.dogs.databinding.ItemDogBinding
 import com.alkathirikhalid.dogs.model.DogBreed
-import com.alkathirikhalid.dogs.util.getProgressDrawable
-import com.alkathirikhalid.dogs.util.loadImage
 
 class DogsListAdapter(private val dogsList: ArrayList<DogBreed>) :
-    RecyclerView.Adapter<DogsListAdapter.DogViewHolder>() {
+    RecyclerView.Adapter<DogsListAdapter.DogViewHolder>(), DogClickListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogViewHolder {
         return DogViewHolder(
@@ -22,15 +20,7 @@ class DogsListAdapter(private val dogsList: ArrayList<DogBreed>) :
 
     override fun onBindViewHolder(holder: DogViewHolder, position: Int) {
         holder.binding.dogBreed = dogsList[position]
-        holder.binding.root.setOnClickListener {
-            val action =
-                ListFragmentDirections.actionListFragmentToDetailFragment(dogsList[position].uuid)
-            it.findNavController().navigate(action)
-        }
-        holder.binding.imageView.loadImage(
-            dogsList[position].imageUrl,
-            getProgressDrawable(holder.binding.imageView.context)
-        )
+        holder.binding.listener = this
 
         holder.binding.executePendingBindings()
     }
@@ -51,5 +41,10 @@ class DogsListAdapter(private val dogsList: ArrayList<DogBreed>) :
 
     class DogViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         val binding: ItemDogBinding = ItemDogBinding.bind(view)
+    }
+
+    override fun onDogClicked(uuid: Int, view: View) {
+        view.findNavController()
+            .navigate(ListFragmentDirections.actionListFragmentToDetailFragment(uuid))
     }
 }

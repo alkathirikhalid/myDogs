@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/dog"
+            android:imageUrl="@{dogBreed.imageUrl}"
             android:minHeight="200dp"
             android:scaleType="fitCenter" />
 
