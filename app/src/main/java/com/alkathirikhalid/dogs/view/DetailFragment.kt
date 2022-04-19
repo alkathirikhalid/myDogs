@@ -9,6 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.alkathirikhalid.dogs.databinding.FragmentDetailBinding
 import com.alkathirikhalid.dogs.model.DogBreed
+import com.alkathirikhalid.dogs.util.getProgressDrawable
+import com.alkathirikhalid.dogs.util.loadImage
 import com.alkathirikhalid.dogs.viewmodel.DetailViewModel
 
 class DetailFragment : Fragment() {
@@ -29,7 +31,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetch()
+        viewModel.fetch(args.dogUuid)
         observeViewModel()
     }
 
@@ -37,6 +39,12 @@ class DetailFragment : Fragment() {
         viewModel.dogLiveData.observe(viewLifecycleOwner) { dogBreed: DogBreed ->
             dogBreed.let {
                 binding.dogBreed = dogBreed
+                context?.let {
+                    binding.dogImage.loadImage(
+                        dogBreed.imageUrl,
+                        getProgressDrawable(it)
+                    )
+                }
             }
         }
     }

@@ -23,7 +23,8 @@ class DogsListAdapter(private val dogsList: ArrayList<DogBreed>) :
     override fun onBindViewHolder(holder: DogViewHolder, position: Int) {
         holder.binding.dogBreed = dogsList[position]
         holder.binding.root.setOnClickListener {
-            val action = ListFragmentDirections.actionListFragmentToDetailFragment(position)
+            val action =
+                ListFragmentDirections.actionListFragmentToDetailFragment(dogsList[position].uuid)
             it.findNavController().navigate(action)
         }
         holder.binding.imageView.loadImage(
