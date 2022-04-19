@@ -9,7 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DogsApiService {
-    private val BASE_URL = "https://raw.githubusercontent.com"
+    private val BASEURL = "https://raw.githubusercontent.com"
 
     private fun getHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
@@ -27,7 +27,7 @@ class DogsApiService {
     }
 
     private val api = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BASEURL)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(getHttpClient())

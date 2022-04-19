@@ -45,7 +45,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    private fun fetchFromRemote() {
+    fun fetchFromRemote() {
         loading.value = true
         disposable.add(
             dogsService.getDogs()
@@ -82,6 +82,8 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                 ++i
             }
             dogsRetrieved(list)
+            Toast.makeText(getApplication(), "Dogs retrieved from remote", Toast.LENGTH_SHORT)
+                .show()
         }
         prefHelper.saveUpdateTime(System.nanoTime())
     }

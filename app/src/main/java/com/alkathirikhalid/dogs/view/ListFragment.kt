@@ -39,7 +39,7 @@ class ListFragment : Fragment() {
             binding.dogsList.visibility = View.GONE
             binding.listError.visibility = View.GONE
             binding.loadingView.visibility = View.VISIBLE
-            viewModel.refresh()
+            viewModel.fetchFromRemote()
             binding.refreshLayout.isRefreshing = false
         }
 
