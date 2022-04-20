@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.alkathirikhalid.dogs.model.DogBreed
 import com.alkathirikhalid.dogs.model.DogDatabase
 import com.alkathirikhalid.dogs.model.DogsApiService
+import com.alkathirikhalid.dogs.util.NotificationsHelper
 import com.alkathirikhalid.dogs.util.SharedPreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -55,6 +56,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
 
                     override fun onSuccess(dogList: List<DogBreed>) {
                         storeDogsLocally(dogList)
+                        NotificationsHelper(getApplication()).createNofitication()
                     }
 
                     override fun onError(e: Throwable) {
