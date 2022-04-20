@@ -1,12 +1,12 @@
 package com.alkathirikhalid.dogs.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alkathirikhalid.dogs.R
 import com.alkathirikhalid.dogs.databinding.FragmentListBinding
 import com.alkathirikhalid.dogs.model.DogBreed
 import com.alkathirikhalid.dogs.viewmodel.ListViewModel
@@ -23,6 +23,7 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -68,6 +69,21 @@ class ListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_listFragment_to_settingsFragment -> {
+                view?.findNavController()
+                    ?.navigate(ListFragmentDirections.actionListFragmentToSettingsFragment())
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
