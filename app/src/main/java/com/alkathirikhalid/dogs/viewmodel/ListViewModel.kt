@@ -27,12 +27,23 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
     val loading = MutableLiveData<Boolean>()
 
     fun refresh() {
-        //  checkCacheDuration()
+        checkCacheDuration()
         val updateTime = prefHelper.getUpdateTime()
         if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
             fetchFromDatabase()
         } else {
             fetchFromRemote()
+        }
+    }
+
+    private fun checkCacheDuration() {
+        val cachePreference = prefHelper.getCacheDuration()
+
+        try {
+            val cachePreferenceInt = cachePreference?.toInt() ?: 5 * 60
+            refreshTime = cachePreferenceInt.times(1000 * 1000 * 1000L)
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
         }
     }
 
